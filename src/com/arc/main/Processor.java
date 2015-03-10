@@ -82,12 +82,17 @@ public class Processor {
 				final String path = result.getPath();
 				System.out.println("path: " + path);
 				if (!isEmpty(path)) {
-					File file = new File(path);
-					file.delete();
-					remove.add(result);
+					final Pattern pattern = Pattern.compile(".png|.jpg"); //匹配图片
+					final Matcher matcher = pattern.matcher(path);
+					if (matcher.find()) {
+						File file = new File(path);
+						file.delete();
+						remove.add(result);
+					}
 				}
 			}
 		}
+		System.out.println("remove " + remove.size() + " images");
 		mResList.removeAll(remove);
 	}
 
